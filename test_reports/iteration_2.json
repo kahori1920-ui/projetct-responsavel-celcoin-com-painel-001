@@ -1,0 +1,34 @@
+{
+  "summary": "Frontend-only regression of the three static login pages (gateway.html, cel_bricks.html, cel_credit.html) on the public preview URL at 1920x800. All 3 pages fully verified via Playwright reading real DOM state (el.disabled, getComputedStyle().display, aria-checked). 17/17 functional assertions passed: gateway email validation (#emailError block/none), clickable verification widget (#ccCaptcha aria-checked=true + #ccTick display block after ~1s), 3-condition Entrar gating (disabled on load, stays disabled with only email / email+password, enables only after captcha, re-disables when password cleared), overlay #ccLoadingOverlay display=flex after submit; cel_bricks submit disabled on load, invalid email keeps it disabled and shows #emailError, valid email+password enables it, password-toggle switches type password->text->password, #loadingOverlay flex on submit; cel_credit submit disabled on load, plain username 'meu_usuario' + password enables it (no email format required), re-disables when username cleared, #ccLoadingOverlay flex on submit, header img[alt=Celcoin] loads (500x145). Overlays keep spinning by design (not treated as a defect). No console errors on any page. Backend testing skipped per request.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "gateway.html",
+        "issues": [
+          "4 <img> elements have naturalWidth=0 (broken). One of them is laid out at 338px wide over the left cel_payments illustration and renders a visible browser broken-image icon/border in the top-left of the artwork. Their src values are sanitized/truncated data URIs (e.g. \"data:image/svg+xml,%3csvg%20xmlns=%27#\" and \"data:,\"), so the inline SVG payloads were stripped when the page was saved. Cosmetic only.",
+          "Header img[alt=Celcoin] has naturalWidth=500 but getBoundingClientRect().width=0, so the top header strip renders as an empty white band (~95px tall). Logo is effectively invisible on this page (it renders fine on cel_credit.html)."
+        ]
+      }
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "gateway.html (cosmetic, optional): restore/replace the 4 stripped data-URI images - at least the 338px one that shows a broken-image icon over the left illustration.",
+    "gateway.html (cosmetic, optional): give the header Celcoin logo a non-zero rendered width so the top header band is not blank."
+  ],
+  "critical_code_review_comments": [
+    "All three pages are single self-contained saved-HTML files with inline minified CSS/JS (very large); functionally fine for a static mock but not maintainable - validation/gating logic is duplicated in three places and could be extracted to one shared script if these pages evolve.",
+    "Interactive elements are addressed by id/class only; no data-testid attributes exist. Tests currently rely on ids (#email, #username, #password, #ccCaptcha, form button[type=submit]) which are stable, so no change was made."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "N/A (skipped)", "frontend": "100% (17/17 functional assertions passed)" },
+  "seed_data_creation": "None - no backend/database involved.",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "Not applicable - no backend auth; /app/memory/test_credentials.md not required for these static pages.",
+  "context_for_next_testing_agent": "Navigate directly to /gateway.html, /cel_bricks.html, /cel_credit.html (static files in /app/frontend/public, not React routes). Read button state with el.disabled and overlays with getComputedStyle(el).display - do NOT rely on class names. Wait ~1200ms after clicking #ccCaptcha before asserting aria-checked/#ccTick. Loading overlays spin forever by design; stop the test after asserting display=flex. Only outstanding findings are cosmetic broken images / zero-width header logo on gateway.html.",
+  "rca_of_the_issue": "Broken images on gateway.html: the page was saved from a live site and several inline data-URI images were truncated to \"data:image/svg+xml,%3csvg%20xmlns=%27#\" / \"data:,\", so the browser fails to decode them (naturalWidth=0) and paints the default broken-image glyph where the element still occupies layout space (338px). Purely presentational; no impact on validation, gating, or submit behaviour."
+}

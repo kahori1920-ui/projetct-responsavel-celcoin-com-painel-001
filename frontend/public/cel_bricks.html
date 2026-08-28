@@ -191,8 +191,12 @@
   if(emailErr){emailErr.style.display=show?'block':'none';}
   if(email){email.style.borderColor=show?'#ef4444':'';}
  }
+ var submit=form?form.querySelector('button[type=submit]'):null;
+ function setBtn(on){if(!submit)return;submit.disabled=!on;submit.style.opacity=on?'':'0.5';submit.style.cursor=on?'':'not-allowed';}
+ function refresh(){var v=email?email.value.trim():'';var p=pass?pass.value:'';setBtn(isValidEmail(v)&&p.length>0);}
+ if(pass){pass.addEventListener('input',refresh);}
  if(email){
-  email.addEventListener('input',function(){var v=email.value.trim();if(v===''||isValidEmail(v)){showEmailError(false);}});
+  email.addEventListener('input',function(){var v=email.value.trim();if(v===''||isValidEmail(v)){showEmailError(false);}refresh();});
   email.addEventListener('blur',function(){var v=email.value.trim();showEmailError(v!==''&&!isValidEmail(v));});
  }
  if(toggle&&pass){
@@ -211,6 +215,7 @@
    if(overlay){overlay.style.display='flex';}
   });
  }
+ setBtn(false);
 })();
 </script>
 <style>body{opacity:1!important;transition:opacity .25s ease}</style>
